@@ -1,3 +1,12 @@
 name: SimpleParkour
 version: '${project.version}'
 main: xyz.mlserver.simpleparkour.SimpleParkour
+
+commands:
+    simpleparkour:
+        description: SimpleParkour command
+        usage: /simpleparkour
+        aliases:
+            - sp
+            - parkour
+            - simple
