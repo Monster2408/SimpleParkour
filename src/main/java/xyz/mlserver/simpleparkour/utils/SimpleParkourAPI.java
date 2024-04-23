@@ -74,5 +74,12 @@ public class SimpleParkourAPI {
         return object;
     }
 
+    private static HashMap<UUID, Location> playerEditLocation;
+
+    public static HashMap<UUID, Location> getPlayerEditLocation() {
+        if (playerEditLocation == null) playerEditLocation = new HashMap<>();
+        return playerEditLocation;
+    }
+
 
 }

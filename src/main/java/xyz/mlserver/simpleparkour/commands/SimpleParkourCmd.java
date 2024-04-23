@@ -1,11 +1,14 @@
 package xyz.mlserver.simpleparkour.commands;
 
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import xyz.mlserver.simpleparkour.utils.SimpleParkourAPI;
 import xyz.mlserver.simpleparkour.utils.objects.SimpleParkourObject;
+
+import java.util.UUID;
 
 public class SimpleParkourCmd implements CommandExecutor {
     @Override
@@ -24,18 +27,22 @@ public class SimpleParkourCmd implements CommandExecutor {
             SimpleParkourObject object = SimpleParkourAPI.getPlayerEditParkour().get(player.getUniqueId());
             if (object != null) {
                 if (args.length == 1) {
-                    if (object != null) {
-                        if (args[0].equalsIgnoreCase("delete")) {
-                            // 確認メッセージ
-                            sender.sendMessage("§c§l[SimpleParkour] §7- §fAre you sure you want to delete this parkour?");
-                        } else if (args[0].equalsIgnoreCase("setstart")) {
-                            // Set start location
-                        } else if (args[0].equalsIgnoreCase("setend")) {
-                            // Set end location
-                        } else if (args[0].equalsIgnoreCase("setlobby")) {
-                            // Set lobby location
+                    UUID uuid = player.getUniqueId();
+                    if (args[0].equalsIgnoreCase("delete")) {
+                        // 確認メッセージ
+                        sender.sendMessage("§c§l[SimpleParkour] §7- §fAre you sure you want to delete this parkour?");
+                    } else if (args[0].equalsIgnoreCase("setstart")) {
+                        if (SimpleParkourAPI.getPlayerEditLocation().containsKey(uuid)) {
+                            Location location = SimpleParkourAPI.getPlayerEditLocation().get(uuid);
+                            object.setStartLocation(location);
+                            sender.sendMessage("§a§l[SimpleParkour] §7- §fStart location set.(X: " + location.getBlockX() + ", Y: " + location.getBlockY() + ", Z: " + location.getBlockZ() + ")");
+                        } else {
+                            sender.sendMessage("§c§l[SimpleParkour] §7- §fPlease select the location with the tool.");
                         }
-                    } else {
+                    } else if (args[0].equalsIgnoreCase("setend")) {
+                        // Set end location
+                    } else if (args[0].equalsIgnoreCase("setlobby")) {
+                        // Set lobby location
                     }
                 } else if (args.length == 2) {
                     String name = args[1];
